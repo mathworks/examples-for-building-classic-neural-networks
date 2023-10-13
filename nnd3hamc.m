@@ -222,7 +222,7 @@ elseif strcmp(cmd,'init') & isempty(fig)
     'CreateFcn','');
 
   % BUTTONS
-  drawnow % Let everything else appear before buttons
+  drawnow nocallbacks % Let everything else appear before buttons
   uicontrol(...
     'units','points',...
     'position',[400 180 60 20],...
@@ -861,8 +861,8 @@ elseif strcmp(cmd,'classify') & ~isempty(fig) & (nargin == 1)
   W2 = [1 -0.5; -0.5 1];
   iter = 5;
 
-  a1 = purelin(W1*p);
-  a2 = a1;
+  a1 = purelin(W1*p + b1);
+  a2 = poslin(W2*a1);
 
   % SHOW FIRST CALCULATION
   axes(fig_axis)
